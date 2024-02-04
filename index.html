@@ -11,26 +11,123 @@
       height: 100vh;
       margin: 0;
       background-color: pink;
+    font-family: 'Comic Sans MS', cursive;
     }
 
-    #homepageImage {
+    .button {
+      position: absolute;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
       cursor: pointer;
-      margin-top: 50px;
+    }
+
+    #leftButton {
+      left: 40%;  /* Adjust the left position as needed */
+      top: 80%;    /* Initial position in the center */
+      transform: translate(-50%, -50%);
+    }
+
+    #randomButton {
+      left: 60%;   /* Initial position in the center */
+      top: 80%;    /* Initial position in the center */
+      transform: translate(-50%, -50%);
+    }
+
+    #textArea {
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #gifContainer {
+      margin-top: 20px;
     }
   </style>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const homepageImage = document.getElementById("homepageImage");
+  document.addEventListener("DOMContentLoaded", function() {
+    const leftButton = document.getElementById("leftButton");
+    const randomButton = document.getElementById("randomButton");
+    const textArea = document.getElementById("textArea");
+    const gifContainer = document.getElementById("gifContainer");
 
-      homepageImage.addEventListener("click", function() {
-        // Change to a new page with the given code when homepage image is clicked
-      });
+    function removeAllButtons() {
+      leftButton.remove();
+      randomButton.remove();
+    }
+
+    function changeTextAndGIF() {
+      // Change text and source of the GIF when "Yes" button is clicked
+      textArea.innerHTML = '<p>yippeeeeeeeeeeee</p>';
+      gifContainer.innerHTML = '<img src="https://media1.tenor.com/m/gs2Z4GPn12MAAAAC/cat-cute.gif">';
+      removeAllButtons();
+    }
+
+    function randomizeButtonPosition(button) {
+      const maxX = window.innerWidth - button.clientWidth;
+      const maxY = window.innerHeight - button.clientHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      button.style.left = randomX + "px";
+      button.style.top = randomY + "px";
+    }
+
+    function increaseButtonSize(button) {
+      const currentSize = window.getComputedStyle(button).fontSize;
+      const newSize = (parseFloat(currentSize) + 10) + "px";
+      button.style.fontSize = newSize;
+    }
+
+    randomButton.addEventListener("click", function() {
+      randomizeButtonPosition(randomButton);
     });
-  </script>
+
+    randomButton.addEventListener("mouseover", function() {
+      // Change text to various ways of saying "No" when hovered
+      const waysToSayNo = [
+        "Nope",
+        "Sorry, but no",
+        "I'm afraid not",
+        "Not a chance",
+        "Unfortunately, no",
+        "No way",
+        "Regrettably, no",
+        "Negative",
+        "Not at this time",
+        "I must decline",
+        "No thanks",
+        "Nope, not interested"
+      ];
+      const randomNo = waysToSayNo[Math.floor(Math.random() * waysToSayNo.length)];
+      randomButton.innerText = randomNo;
+
+      // Randomize the button position when hovered
+      randomizeButtonPosition(randomButton);
+
+      // Increase the size of the "Yes" button when the "No" button is hovered
+      increaseButtonSize(leftButton);
+    });
+
+    leftButton.addEventListener("click", function() {
+      changeTextAndGIF();
+    });
+  });
+</script>
 </head>
 <body>
-  <a href="./designathon code.html">
-    <img src="https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg" alt="Homepage Image">
-  </a>
+  <button id="leftButton" class="button">Yes!</button>
+
+  <div id="textArea">
+    <p>Will you go out with me?</p>
+  </div>
+
+  <button id="randomButton" class="button">No</button>
+
+  <div id="gifContainer">
+    <!-- Add your initial GIF or any content here -->
+    <img src="https://i.imgur.com/nY2m2KP.png" alt="PNG">
+  </div>
 </body>
 </html>
